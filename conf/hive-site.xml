@@ -15,4 +15,5 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 --><configuration>
+<property><name>hive.exec.pre.hooks</name><value>HeliosExecutionHook</value></property>
 </configuration>
