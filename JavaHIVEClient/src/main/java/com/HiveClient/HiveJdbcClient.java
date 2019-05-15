@@ -1,4 +1,4 @@
-package com.HiveClient
+package com.HiveClient;
 
 import java.sql.SQLException;
 import java.sql.Connection;
