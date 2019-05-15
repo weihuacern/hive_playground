@@ -46,10 +46,9 @@ public class HiveJdbcClient {
         }
  
         // load data into table
-        // NOTE: filepath has to be local to the hive server
-        // NOTE: /tmp/a.txt is a ctrl-A separated file with two fields per line
-        String filepath = "/tmp/a.txt";
-        sql = "load data local inpath '" + filepath + "' into table " + tableName;
+        sql = String.format("insert into table %s values (%d, '%s')",
+                            tableName,
+                            1, "aaa");
         System.out.println("Running: " + sql);
         stmt.execute(sql);
  
