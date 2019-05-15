@@ -1,3 +1,5 @@
+package com.HiveClient
+
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,7 +36,7 @@ public class HiveJdbcClient {
         if (res.next()) {
             System.out.println(res.getString(1));
         }
-             // describe table
+        // describe table
         sql = "describe " + tableName;
         System.out.println("Running: " + sql);
         res = stmt.executeQuery(sql);
