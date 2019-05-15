@@ -3,6 +3,6 @@
 ## HIVE Client
 ```bash
 cd JavaHIVEClient/
-mvc package
+mvn package assembly:single
 java -jar target/HiveJdbcClient-1.0.jar
 ```
