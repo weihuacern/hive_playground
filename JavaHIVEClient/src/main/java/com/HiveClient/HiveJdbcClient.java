@@ -12,7 +12,6 @@ import org.apache.hive.jdbc.HiveDriver;
 
 public class HiveJdbcClient {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
- 
 
     /**
      * Generate a random string.
@@ -45,48 +44,51 @@ public class HiveJdbcClient {
 
         //replace "hive" here with the name of the user the queries should run as
         Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "scott", "tiger");
+        //Connection con = DriverManager.getConnection("jdbc:hive2://35.235.75.246:10000/default", "scott", "tiger");
         Statement stmt = con.createStatement();
-        String tableName = "testHiveDriverTable";
-        stmt.execute("drop table if exists " + tableName);
-        stmt.execute("create table " + tableName + " (key int, value string)");
+        //String tableName = "testHiveDriverTable";
+        String tableName = "huaTest001";
+        stmt.execute(String.format("drop table if exists %s", tableName));
+        stmt.execute(String.format("create table %s (key int, value string)", tableName));
 
         // show tables
-        String sql = "show tables '" + tableName + "'";
-        System.out.println("Running: " + sql);
+        String sql = String.format("show tables '%s'", tableName);
+        System.out.println(String.format("Running: %s", sql));
         ResultSet res = stmt.executeQuery(sql);
         if (res.next()) {
             System.out.println(res.getString(1));
         }
         // describe table
-        sql = "describe " + tableName;
-        System.out.println("Running: " + sql);
+        sql = String.format("describe %s", tableName);
+        System.out.println(String.format("Running: %s", sql));
         res = stmt.executeQuery(sql);
         while (res.next()) {
             System.out.println(res.getString(1) + "\t" + res.getString(2));
         }
 
         HiveJdbcClient hc = new HiveJdbcClient();
-        //
-        for (int i = 0; i < 5; i++) {
+        //batch insert
+        for (int i = 0; i < 10; i++) {
             String rs = hc.generateString(new Random(), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890", 10);
             // load data into table
             sql = String.format("insert into table %s values (%d, '%s')",
                                 tableName,
                                 i, rs);
-            System.out.println("Running: " + sql);
+            System.out.println(String.format("Running: %s", sql));
             stmt.execute(sql);
         }
+
         // select * query
-        sql = "select * from " + tableName;
-        System.out.println("Running: " + sql);
+        sql = String.format("select * from %s", tableName);
+        System.out.println(String.format("Running: %s", sql));
         res = stmt.executeQuery(sql);
         while (res.next()) {
-            System.out.println(String.valueOf(res.getInt(1)) + "\t" + res.getString(2));
+            System.out.println(String.format("%s\t%s", String.valueOf(res.getInt(1)), res.getString(2)));
         }
- 
+
         // regular hive query
-        sql = "select count(1) from " + tableName;
-        System.out.println("Running: " + sql);
+        sql = String.format("select count(1) from %s", tableName);
+        System.out.println(String.format("Running: %s", sql));
         res = stmt.executeQuery(sql);
         while (res.next()) {
             System.out.println(res.getString(1));
