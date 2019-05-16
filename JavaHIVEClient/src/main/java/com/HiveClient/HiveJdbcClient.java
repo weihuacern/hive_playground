@@ -1,9 +1,12 @@
+package com.HiveClient;
+
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
- 
+import org.apache.hive.jdbc.HiveDriver;
+
 public class HiveJdbcClient {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
  
@@ -34,7 +37,7 @@ public class HiveJdbcClient {
         if (res.next()) {
             System.out.println(res.getString(1));
         }
-             // describe table
+        // describe table
         sql = "describe " + tableName;
         System.out.println("Running: " + sql);
         res = stmt.executeQuery(sql);
@@ -43,10 +46,9 @@ public class HiveJdbcClient {
         }
  
         // load data into table
-        // NOTE: filepath has to be local to the hive server
-        // NOTE: /tmp/a.txt is a ctrl-A separated file with two fields per line
-        String filepath = "/tmp/a.txt";
-        sql = "load data local inpath '" + filepath + "' into table " + tableName;
+        sql = String.format("insert into table %s values (%d, '%s')",
+                            tableName,
+                            1, "aaa");
         System.out.println("Running: " + sql);
         stmt.execute(sql);
  
