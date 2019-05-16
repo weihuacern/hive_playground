@@ -34,6 +34,20 @@ public class HiveJdbcClient {
      * @throws SQLException
      */
     public static void main(String[] args) throws SQLException {
+        Integer nRows = 10;
+        // check if length of args array is greater than 0
+        if (args.length > 0) 
+        { 
+            System.out.println("The command line arguments are: "); 
+            // iterating the args array and printing the command line arguments
+            for (String val:args) 
+                System.out.println(val); 
+            nRows = Integer.valueOf(args[0]);
+        } 
+        else {
+            System.out.println("No command line arguments found.");
+        }
+
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
@@ -42,9 +56,9 @@ public class HiveJdbcClient {
             System.exit(1);
         }
 
-        //replace "hive" here with the name of the user the queries should run as
-        Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "scott", "tiger");
-        //Connection con = DriverManager.getConnection("jdbc:hive2://35.235.75.246:10000/default", "scott", "tiger");
+        //Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "scott", "tiger");
+        //beeline -n hive -p hive-password -u jdbc:hive2://35.235.75.246:10000
+        Connection con = DriverManager.getConnection("jdbc:hive2://35.235.75.246:10000/default", "hive", "hive-password");
         Statement stmt = con.createStatement();
         //String tableName = "testHiveDriverTable";
         String tableName = "huaTest001";
@@ -68,7 +82,7 @@ public class HiveJdbcClient {
 
         HiveJdbcClient hc = new HiveJdbcClient();
         //batch insert
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < nRows; i++) {
             String rs = hc.generateString(new Random(), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890", 10);
             // load data into table
             sql = String.format("insert into table %s values (%d, '%s')",
@@ -79,12 +93,12 @@ public class HiveJdbcClient {
         }
 
         // select * query
-        sql = String.format("select * from %s", tableName);
-        System.out.println(String.format("Running: %s", sql));
-        res = stmt.executeQuery(sql);
-        while (res.next()) {
-            System.out.println(String.format("%s\t%s", String.valueOf(res.getInt(1)), res.getString(2)));
-        }
+        //sql = String.format("select * from %s", tableName);
+        //System.out.println(String.format("Running: %s", sql));
+        //res = stmt.executeQuery(sql);
+        //while (res.next()) {
+        //    System.out.println(String.format("%s\t%s", String.valueOf(res.getInt(1)), res.getString(2)));
+        //}
 
         // regular hive query
         sql = String.format("select count(1) from %s", tableName);
