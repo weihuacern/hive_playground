@@ -42,9 +42,9 @@ public class HiveJdbcClient {
             System.exit(1);
         }
 
-        //replace "hive" here with the name of the user the queries should run as
-        Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "scott", "tiger");
-        //Connection con = DriverManager.getConnection("jdbc:hive2://35.235.75.246:10000/default", "scott", "tiger");
+        //Connection con = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "scott", "tiger");
+        //beeline -n hive -p hive-password -u jdbc:hive2://35.235.75.246:10000
+        Connection con = DriverManager.getConnection("jdbc:hive2://35.235.75.246:10000/default", "hive", "hive-password");
         Statement stmt = con.createStatement();
         //String tableName = "testHiveDriverTable";
         String tableName = "huaTest001";
