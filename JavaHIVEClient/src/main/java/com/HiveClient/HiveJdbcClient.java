@@ -1,15 +1,35 @@
 package com.HiveClient;
 
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
+import java.util.Random;
+
 import org.apache.hive.jdbc.HiveDriver;
 
 public class HiveJdbcClient {
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
  
+
+    /**
+     * Generate a random string.
+     *
+     * @param random the random number generator.
+     * @param characters the characters for generating string.
+     * @param length the length of the generated string.
+     * @return
+     */
+    public String generateString(Random random, String characters, int length) {
+        char[] text = new char[length];
+        for (int i = 0; i < length; i++) {
+            text[i] = characters.charAt(random.nextInt(characters.length()));
+        }
+        return new String(text);
+    }
+
     /**
      * @param args
      * @throws SQLException
@@ -44,14 +64,18 @@ public class HiveJdbcClient {
         while (res.next()) {
             System.out.println(res.getString(1) + "\t" + res.getString(2));
         }
- 
-        // load data into table
-        sql = String.format("insert into table %s values (%d, '%s')",
-                            tableName,
-                            1, "aaa");
-        System.out.println("Running: " + sql);
-        stmt.execute(sql);
- 
+
+        HiveJdbcClient hc = new HiveJdbcClient();
+        //
+        for (int i = 0; i < 5; i++) {
+            String rs = hc.generateString(new Random(), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890", 10);
+            // load data into table
+            sql = String.format("insert into table %s values (%d, '%s')",
+                                tableName,
+                                i, rs);
+            System.out.println("Running: " + sql);
+            stmt.execute(sql);
+        }
         // select * query
         sql = "select * from " + tableName;
         System.out.println("Running: " + sql);
