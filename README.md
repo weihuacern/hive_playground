@@ -4,5 +4,5 @@
 ```bash
 cd JavaHIVEClient/
 mvn package assembly:single
-java -jar target/HiveJdbcClient-1.0-jar-with-dependencies.jar
+java -jar target/HiveJdbcClient-1.0-jar-with-dependencies.jar 1000000
 ```
