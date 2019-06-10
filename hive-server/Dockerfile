@@ -1,7 +1,6 @@
 FROM hadoop-base:2.0.0-hadoop2.7.4-java8
 
-MAINTAINER Yiannis Mouchakis <gmouchakis@iit.demokritos.gr>
-MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
+MAINTAINER Hua Wei <weihua19900704@gmail.com>
 
 # Allow buildtime config of HIVE_VERSION
 ARG HIVE_VERSION
