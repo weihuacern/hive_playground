@@ -6,6 +6,11 @@ services:
       context: ./hadoop-base
       dockerfile: Dockerfile
     image: hadoop-base:2.0.0-hadoop2.7.4-java8
+  hive-metastore-postgresql:
+    build:
+      context: ./hive-metastore-postgresql
+      dockerfile: Dockerfile
+    image: hive-metastore-postgresql:2.3.0
   hive-base:
     build:
       context: ./hive-base

@@ -48,7 +48,7 @@ services:
       - "9083:9083"
   hive-metastore-postgresql:
     container_name: hive-metastore-postgresql
-    image: bde2020/hive-metastore-postgresql:2.3.0
+    image: hive-metastore-postgresql:2.3.0
 
 volumes:
   namenode:
