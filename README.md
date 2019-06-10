@@ -7,6 +7,11 @@ docker-compose -f ./compose-base.yml build hadoop-base
 ```
 
 ## Service Images
+###
+```bash
+docker-compose -f ./compose.yml build hive-server
+```
+
 
 ## HIVE Client
 ```bash
