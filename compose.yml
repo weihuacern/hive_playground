@@ -2,9 +2,10 @@ version: "3"
 
 services:
   namenode:
+    container_name: namenode
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     volumes:
-      - namenode:/hadoop/dfs/name
+      - /opt/helios/hadoop/namenode:/hadoop/dfs/name:rw
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -12,9 +13,10 @@ services:
     ports:
       - "50070:50070"
   datanode:
+    container_name: datanode
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
     volumes:
-      - datanode:/hadoop/dfs/data
+      - /opt/helios/hadoop/datanode:/hadoop/dfs/data:rw
     env_file:
       - ./hadoop-hive.env
     environment:
@@ -22,7 +24,13 @@ services:
     ports:
       - "50075:50075"
   hive-server:
-    image: bde2020/hive:2.3.2-postgresql-metastore
+    container_name: hive-server
+    build:
+      context: ./hive-server
+      dockerfile: Dockerfile
+    image: hive:2.3.2-postgresql-metastore
+    volumes:
+      - /opt/helios/hive/log:/opt/helios/hive/log:rw
     env_file:
       - ./hadoop-hive.env
     environment:
@@ -32,7 +40,8 @@ services:
       - "10000:10000"
       - "10002:10002"
   hive-metastore:
-    image: bde2020/hive:2.3.2-postgresql-metastore
+    container_name: hive-metastore
+    image: hive:2.3.2-postgresql-metastore
     env_file:
       - ./hadoop-hive.env
     command: /opt/hive/bin/hive --service metastore
@@ -41,11 +50,8 @@ services:
     ports:
       - "9083:9083"
   hive-metastore-postgresql:
+    container_name: hive-metastore-postgresql
     image: bde2020/hive-metastore-postgresql:2.3.0
-  presto-coordinator:
-    image: shawnzhu/prestodb:0.181
-    ports:
-      - "8080:8080"
 
 volumes:
   namenode:
