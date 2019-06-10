@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  hadoop-base:
+    build:
+      context: ./hadoop-base
+      dockerfile: Dockerfile
+    image: hadoop-base:2.0.0-hadoop2.7.4-java8

@@ -25,7 +25,10 @@ services:
       - "50075:50075"
   hive-server:
     container_name: hive-server
-    image: bde2020/hive:2.3.2-postgresql-metastore
+    build:
+      context: ./hive-server
+      dockerfile: Dockerfile
+    image: hive:2.3.2-postgresql-metastore
     volumes:
       - /opt/helios/hive/log:/opt/helios/hive/log:rw
     env_file:

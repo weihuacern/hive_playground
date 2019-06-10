@@ -1,5 +1,13 @@
 # HIVE Playground
 
+## Base Images
+### Hadoop Base Image
+```bash
+docker-compose -f ./compose-base.yml build hadoop-base
+```
+
+## Service Images
+
 ## HIVE Client
 ```bash
 cd JavaHIVEClient/
