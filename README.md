@@ -5,6 +5,11 @@
 ```bash
 docker-compose -f ./compose-base.yml build hadoop-base
 ```
+### HIVE Base Image
+#### HIVE Base Image: PostgreSQL as Metastore
+```bash
+docker-compose -f ./compose-base.yml build hive-base
+```
 
 ## Service Images
 ### HIVE Server

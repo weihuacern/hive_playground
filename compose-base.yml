@@ -6,3 +6,10 @@ services:
       context: ./hadoop-base
       dockerfile: Dockerfile
     image: hadoop-base:2.0.0-hadoop2.7.4-java8
+  hive-base:
+    build:
+      context: ./hive-base
+      dockerfile: Dockerfile
+    image: hive-base:2.3.2-postgresql
+    depends_on:
+      - hadoop-base
