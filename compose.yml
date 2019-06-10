@@ -3,7 +3,7 @@ version: "3"
 services:
   namenode:
     container_name: namenode
-    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    image: hadoop-namenode:2.0.0-hadoop2.7.4-java8
     volumes:
       - /opt/helios/hadoop/namenode:/hadoop/dfs/name:rw
     environment:
@@ -14,7 +14,7 @@ services:
       - "50070:50070"
   datanode:
     container_name: datanode
-    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    image: hadoop-datanode:2.0.0-hadoop2.7.4-java8
     volumes:
       - /opt/helios/hadoop/datanode:/hadoop/dfs/data:rw
     env_file:
