@@ -3,6 +3,7 @@ version: "3"
 services:
   namenode:
     container_name: namenode
+    #image: hadoop-namenode:2.0.0-hadoop2.7.4-java8
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
     volumes:
       - /opt/helios/hadoop/namenode:/hadoop/dfs/name:rw
@@ -14,6 +15,7 @@ services:
       - "50070:50070"
   datanode:
     container_name: datanode
+    #image: hadoop-datanode:2.0.0-hadoop2.7.4-java8
     image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
     volumes:
       - /opt/helios/hadoop/datanode:/hadoop/dfs/data:rw
@@ -25,10 +27,7 @@ services:
       - "50075:50075"
   hive-server:
     container_name: hive-server
-    build:
-      context: ./hive-server
-      dockerfile: Dockerfile
-    image: hive:2.3.2-postgresql-metastore
+    image: hive-base:2.3.2-postgresql
     volumes:
       - /opt/helios/hive/log:/opt/helios/hive/log:rw
     env_file:
@@ -41,7 +40,7 @@ services:
       - "10002:10002"
   hive-metastore:
     container_name: hive-metastore
-    image: hive:2.3.2-postgresql-metastore
+    image: hive-base:2.3.2-postgresql
     env_file:
       - ./hadoop-hive.env
     command: /opt/hive/bin/hive --service metastore
@@ -51,7 +50,7 @@ services:
       - "9083:9083"
   hive-metastore-postgresql:
     container_name: hive-metastore-postgresql
-    image: bde2020/hive-metastore-postgresql:2.3.0
+    image: hive-metastore-postgresql:2.3.0
 
 volumes:
   namenode:
