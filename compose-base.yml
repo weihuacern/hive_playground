@@ -5,17 +5,17 @@ services:
     build:
       context: ./hadoop-base
       dockerfile: Dockerfile
-    image: hadoop-base:2.0.0-hadoop2.7.4-java8
+    image: hadoop-base:3.0.0-hadoop3.2.0-java8
   hadoop-namenode:
     build:
       context: ./hadoop-namenode
       dockerfile: Dockerfile
-    image: hadoop-namenode:2.0.0-hadoop2.7.4-java8
+    image: hadoop-namenode:3.0.0-hadoop3.2.0-java8
   hadoop-datanode:
     build:
       context: ./hadoop-datanode
       dockerfile: Dockerfile
-    image: hadoop-datanode:2.0.0-hadoop2.7.4-java8
+    image: hadoop-datanode:3.0.0-hadoop3.2.0-java8
   hive-metastore-postgresql:
     build:
       context: ./hive-metastore-postgresql
