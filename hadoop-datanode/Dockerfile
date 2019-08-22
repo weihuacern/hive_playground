@@ -1,4 +1,4 @@
-FROM hadoop-base:2.0.0-hadoop2.7.4-java8
+FROM hadoop-base:3.0.0-hadoop3.2.0-java8
 
 MAINTAINER Hua Wei <weihua19900704@gmail.com>
 
